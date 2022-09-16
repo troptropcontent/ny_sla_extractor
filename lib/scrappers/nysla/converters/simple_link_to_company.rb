@@ -1,8 +1,15 @@
-module Nysla
-  class DataExtractor
+require_relative 'company'
+module Nysla::Converters
+  class SimpleLinkToCompany
     def initialize(link_element)
       @link_element = link_element
     end
+
+    def call
+      Company.new(license_id, name, localisation, reports)
+    end
+
+    private
 
     def license_id
       data_from_text['license']
@@ -20,21 +27,15 @@ module Nysla
       @href ||= @link_element.to_h['href']
     end
 
-    def number_of_pages
-      data_from_href['numpages'].first.to_i
-    end
-
-    def to_h
+    def reports
       {
-        license_id: license_id,
-        name: name,
-        localisation: localisation,
-        href: href,
-        number_of_pages: number_of_pages
+        '' => number_of_pages
       }
     end
 
-    private
+    def number_of_pages
+      data_from_href['numpages'].first.to_i
+    end
 
     def data_from_text
       @data_from_text ||= @link_element.text.match(/(?<name>.+) - (?<license>\d{7})\((?<localisation>.+)\)$/).named_captures
