@@ -26,7 +26,7 @@ module Nysla
 
     def to_h
       {
-        links: companies,
+        companies: companies,
         month: month,
         year: year,
         number_of_pages: number_of_pages
