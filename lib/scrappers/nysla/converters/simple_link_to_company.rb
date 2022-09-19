@@ -1,5 +1,4 @@
 require_relative './models/company'
-require_relative './models/company'
 require_relative 'extension_and_numpages_to_pages'
 
 module Nysla::Converters

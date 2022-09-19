@@ -11,6 +11,7 @@ module Nysla::Converters::Models
       {
         month: @month,
         year: @year,
+        kind: @kind,
         companies_attributes: @companies.to_params
       }
     end

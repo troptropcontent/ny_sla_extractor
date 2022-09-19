@@ -10,8 +10,8 @@ module Nysla
     def call
       Converters::Models::Companies.new(
         [
-          *Extractors::SimpleCompanies.new(@html_file).call
-          # *Extractors::ComplexCompanies.new(@html_file).call
+          *Extractors::SimpleCompanies.new(@html_file).call,
+          *Extractors::ComplexCompanies.new(@html_file).call
         ]
       )
     end
