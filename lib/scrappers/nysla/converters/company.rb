@@ -1,13 +1,13 @@
 require_relative 'reports_to_urls'
 module Nysla::Converters
   class Company
-    attr_reader :license, :name, :localisation, :reports
+    attr_reader :license, :name, :localisation, :pages
 
-    def initialize(license, name, localisation, reports)
+    def initialize(license, name, localisation, pages)
       @license = license
       @name = name
       @localisation = localisation
-      @reports = reports
+      @pages = pages
     end
 
     def number_of_pages
@@ -15,7 +15,7 @@ module Nysla::Converters
     end
 
     def report_page_urls
-      Nysla::Converters::ReportsToUrls.new(self).call
+      Nysla::Converters::PagesToUrls.new(self).call
     end
   end
 end
