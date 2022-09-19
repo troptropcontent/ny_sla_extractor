@@ -2,6 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 require_relative 'companies_extractor'
 require_relative 'date_extractor'
+require_relative './converters/models/report'
 
 module Nysla
   class Scraper
@@ -20,17 +21,17 @@ module Nysla
       fetched_date['year']
     end
 
-    def number_of_pages
-      @number_of_pages ||= @companies.sum(&:number_of_pages)
+    def to_params
+      report.to_params
     end
 
-    def to_h
-      {
-        companies: companies,
-        month: month,
-        year: year,
-        number_of_pages: number_of_pages
-      }
+    def report
+      @report ||= Converters::Models::Report.new(
+        month,
+        year,
+        'WR',
+        companies
+      )
     end
 
     private

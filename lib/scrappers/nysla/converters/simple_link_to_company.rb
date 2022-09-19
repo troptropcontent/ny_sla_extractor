@@ -1,4 +1,7 @@
-require_relative 'company'
+require_relative './models/company'
+require_relative './models/company'
+require_relative 'extension_and_numpages_to_pages'
+
 module Nysla::Converters
   class SimpleLinkToCompany
     def initialize(link_element)
@@ -6,12 +9,12 @@ module Nysla::Converters
     end
 
     def call
-      Company.new(license_id, name, localisation, reports)
+      Models::Company.new(license, name, localisation, pages)
     end
 
     private
 
-    def license_id
+    def license
       data_from_text['license']
     end
 
@@ -27,10 +30,8 @@ module Nysla::Converters
       @href ||= @link_element.to_h['href']
     end
 
-    def reports
-      {
-        '' => number_of_pages
-      }
+    def pages
+      ExtensionAndNumpagesToPages.new('', number_of_pages).call
     end
 
     def number_of_pages

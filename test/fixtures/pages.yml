@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: one
+  nopage: 1
+  numpages: 1
+  extension: MyString
+
+two:
+  company: two
+  nopage: 1
+  numpages: 1
+  extension: MyString

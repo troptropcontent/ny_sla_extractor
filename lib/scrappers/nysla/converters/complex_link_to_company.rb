@@ -1,4 +1,4 @@
-require_relative 'company'
+require_relative './models/company'
 module Nysla::Converters
   class ComplexLinkToCompany
     def initialize(link_element, ul_element)
@@ -7,7 +7,7 @@ module Nysla::Converters
     end
 
     def call
-      Company.new(license_id, name, localisation, reports)
+      Models::Company.new(license_id, name, localisation, pages)
     end
 
     private
@@ -24,7 +24,7 @@ module Nysla::Converters
       data_from_text['localisation']
     end
 
-    def reports
+    def pages
       links_from_ul.each_with_object({}) do |link, memo|
         memo[link.text] = numpages_from_link_element(link)
       end
